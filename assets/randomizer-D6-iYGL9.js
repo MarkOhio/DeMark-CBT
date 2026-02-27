@@ -1,0 +1,1 @@
+function s(o,n){if(n>o.length)throw new Error("Requested question count exceeds pool size");const e=[...o];for(let t=e.length-1;t>0;t--){const r=Math.floor(Math.random()*(t+1));[e[t],e[r]]=[e[r],e[t]]}return e.slice(0,n)}export{s as getRandomQuestions};
