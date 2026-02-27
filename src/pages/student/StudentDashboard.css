@@ -1,0 +1,86 @@
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 1.5rem;
+  padding-top: 80px;
+}
+
+/* Desktop Sidebar Offset */
+@media (min-width: 768px) {
+  .dashboard-content {
+    margin-left: 220px;
+  }
+}
+
+.student-dashboard h2 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+/* =========================
+   STUDENT DASHBOARD
+   ========================= */
+
+
+
+.dashboard-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+}
+
+.exam-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.exam-card {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.exam-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exam-title {
+  font-weight: 600;
+  
+}
+
+.exam-code {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.exam-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.exam-status {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.exam-status.active {
+  color: var(--success);
+}
+
+.exam-status.upcoming {
+  color: var(--warning);
+}
+

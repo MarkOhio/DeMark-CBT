@@ -1,0 +1,41 @@
+.stud-info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: auto 10vw;
+}
+.exam-instructions {
+  max-width: 500px;
+  margin: 32px auto;
+  background: #020617;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #334155;
+}
+
+.exam-instructions h2 {
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background-color: #0f172a;
+  color: #e5e7eb;
+}

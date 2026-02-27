@@ -1,0 +1,109 @@
+/* AdminDashboard.css */
+
+.admin-con {
+  min-height: 100vh;
+  background-color: #296dd3;
+  top: 10px;
+}
+
+.admin-dashboard {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.admin-dashboard h2 {
+  margin-bottom: 30px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #222;
+}
+
+.exam-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.exam-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.exam-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.exam-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+}
+
+.exam-card p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.card-buttons button {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.card-buttons button:hover {
+  transform: translateY(-1px);
+}
+
+.card-buttons button:first-child {
+  background-color: #2563eb;
+  color: #fff;
+}
+
+.card-buttons button:first-child:hover {
+  background-color: #1e4ed8;
+}
+
+.delete-btn {
+  background-color: #dc2626;
+  color: #fff;
+}
+
+.delete-btn:hover {
+  background-color: #b91c1c;
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 600px) {
+  .admin-dashboard {
+    padding: 25px 15px;
+  }
+
+  .admin-dashboard h2 {
+    font-size: 20px;
+  }
+
+  .exam-card {
+    padding: 15px;
+  }
+}

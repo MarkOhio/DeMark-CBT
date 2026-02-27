@@ -1,0 +1,73 @@
+.admin-feedback {
+  padding-top: 80px;
+}
+
+.admin-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.admin-toolbar input,
+.admin-toolbar select {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-card {
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 16px;
+  background: #fff;
+}
+
+.admin-meta h3 {
+  margin: 0;
+}
+
+.admin-meta p {
+  margin: 6px 0;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #eee;
+  font-size: 12px;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.reply-section {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reply-section textarea {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.reply-section button {
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  background: #00aaff;
+  color: white;
+  cursor: pointer;
+}
+

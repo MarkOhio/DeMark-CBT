@@ -1,0 +1,31 @@
+
+/* =========================
+   LOGIN PAGE STYLES
+   ========================= */
+
+.login-page {
+  min-height: calc(100vh - 56px); /* account for mobile navbar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+}
+
+.login-choice {
+  width: 100%;
+  max-width: 360px;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius);
+  padding: var(--space-xl);
+  text-align: center;
+  gap: 2vh;
+}
+#login-btn{
+  margin: 1vh 0;
+}
+.login-choice h2{
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+}
+ 
