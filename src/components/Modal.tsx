@@ -21,7 +21,7 @@ export default function Modal({ visible, onClose, children }: ModalProps) {
       <div className="modal-content">
         <button className="modal-close" onClick={onClose}>
           ×
-        </button>
+        </button> <br />
         {children}
       </div>
     </div>

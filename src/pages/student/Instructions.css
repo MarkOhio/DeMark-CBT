@@ -1,0 +1,162 @@
+.instruction-page {
+    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  min-height: 100vh;
+  background-color:var( --bg-elevated);
+
+  color: #e5e7eb;
+}
+
+.instruction-container {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%; 
+  padding: 40px 20px; 
+}
+
+.instruction-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.instruction-header h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.instruction-header .subtitle {
+  font-size: 16px;
+  color: #94a3b8;
+}
+
+.instruction-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.instruction-section {
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.instruction-section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.instruction-section h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.instruction-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.section-svg {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  color: #60a5fa;
+}
+
+.instruction-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.instruction-section li {
+  font-size: 14px;
+  color: #cbd5e1;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.instruction-section li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: bold;
+}
+
+.instruction-footer {
+  text-align: center;
+  padding: 30px;
+  border-top: 1px solid #374151;
+  background: #111827;
+  border-radius: 12px;
+}
+
+.acknowledgment {
+  font-size: 14px;
+  color: #9ca3af;
+  margin-bottom: 16px;
+}
+
+.btn-back {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-back:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .instruction-container {
+    padding: 24px 16px;
+    padding-top: 70px;
+   width: 100%;
+  display: grid;
+  justify-content: space-between;
+  min-height: 100vh;
+  background-color:var( --bg-elevated);
+
+  color: #e5e7eb;
+
+  }
+
+  .instruction-header h1 {
+    font-size: 24px;
+  }
+
+  .instruction-header .subtitle {
+    font-size: 14px;
+  }
+
+  .instruction-sections {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .instruction-section {
+    padding: 20px;
+  }
+}

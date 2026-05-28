@@ -63,6 +63,8 @@ export default function AdminFeedback() {
   }, []);
 
   const deleteEntry = async (id: string) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+    if (!confirmDelete) return;
     await remove(ref(database, `feedback/${id}`));
   };
 
@@ -73,10 +75,15 @@ export default function AdminFeedback() {
   };
 
   const saveReply = async (feedbackId: string) => {
-    if (!isAdmin) return alert("Only admins can post replies.");
 
-    const message = replyText[feedbackId];
-    if (!message) return;
+ 
+
+    const message = (replyText[feedbackId] || "").trim();
+
+if (!message) {
+  alert("Reply cannot be empty");
+  return;
+}
 
     const replyRef = ref(database, `feedback/${feedbackId}/replies`);
 
@@ -100,7 +107,7 @@ export default function AdminFeedback() {
   };
 
   const updateReply = async (feedbackId: string, replyId: string) => {
-    if (!isAdmin) return alert("Only admins can edit replies.");
+ 
     const message = editReplyText[replyId];
     if (!message) return;
 
@@ -113,7 +120,7 @@ export default function AdminFeedback() {
   };
 
   const deleteReply = async (feedbackId: string, replyId: string) => {
-    if (!isAdmin) return alert("Only admins can delete replies.");
+    
     await remove(ref(database, `feedback/${feedbackId}/replies/${replyId}`));
   };
 
@@ -136,20 +143,17 @@ export default function AdminFeedback() {
   });
 
   return (
-    <div className="dashboard-layout">
+    <div className="admin-feedback-dashboard-layout">
       <Navbar />
 
       <main className="dashboard-content admin-feedback">
         <h1>Admin Feedback Panel</h1>
 
         <div className="admin-toolbar">
-          <input
-            placeholder="Search everything..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+       
 
           <select
+            className="catei"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -165,15 +169,22 @@ export default function AdminFeedback() {
               onChange={(e) => setAdminName(e.target.value)}
             />
             <button
+            className="admin-savebtn"
               onClick={() => {
                 saveAdminDisplayName(adminName);
                 alert("Admin name saved locally.");
               }}
             >
-              Save Name
+              <svg className="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12V4m0 0l-3 3m3-3l3 3"></path></svg>
             </button>
           </div>
         </div>
+
+           <input
+            placeholder="Search everything..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
         <div className="admin-list">
           {filtered.map((entry) => {
@@ -197,13 +208,13 @@ export default function AdminFeedback() {
                 </div>
 
                 <div className="admin-actions">
-                  <button
+                  <button className="admin-actions-toggle"
                     onClick={() => toggleStatus(entry.id, entry.status)}
                   >
                     Toggle Status
                   </button>
 
-                  <button onClick={() => deleteEntry(entry.id)}>Delete</button>
+                  <button className="admin-actions-delete" onClick={() => deleteEntry(entry.id)}>Delete</button>
                 </div>
 
                 <div className="reply-section">
@@ -263,7 +274,7 @@ export default function AdminFeedback() {
                     }
                   />
 
-                  <button onClick={() => saveReply(entry.id)}>Send Reply</button>
+                  <button className="admin-actions-save" onClick={() => saveReply(entry.id)}>Send Reply</button>
                 </div>
               </div>
             );

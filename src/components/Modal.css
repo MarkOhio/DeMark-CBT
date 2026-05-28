@@ -22,15 +22,22 @@
   width: 90%;
       height: 70%;
     overflow: auto;
+    display: grid;
 }
 
 .modal-close {
   position: absolute;
-  top: 8px;
-  right: 12px;
+  top: 8px;  
   background: transparent;
   border: none;
-  color: #e5e7eb;
+  color: #ff0000;
   font-size: 1.5rem;
   cursor: pointer;
+  margin: 0px auto;
+  display:flex;
+  align-items: center;
+  justify-content: center;
 }
+.modal-close:hover {
+  background-color: #bd6a6a0e;
+}rgba(145, 3, 3, 0.055)

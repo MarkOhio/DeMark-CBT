@@ -181,42 +181,65 @@ export default function ExamUpload() {
   return (
     <div className="exam-upload">
       <Navbar />
+      <div className="exam-input">
+
       <h2>Upload Exam</h2>
 
-      <input
+      <div className="feild">
+              <input
         placeholder="Exam Title"
         value={examTitle}
         onChange={(e) => setExamTitle(e.target.value)}
       />
 
-      <input
+      </div>
+
+       <div className="flex-input">
+       
+      <div className="feild">
+         <label htmlFor="text"> Course Code</label>
+          <input
+          type="text"
         placeholder="Course Code"
         value={courseCode}
         onChange={(e) => setCourseCode(e.target.value)}
       />
+      </div>
 
-      <label htmlFor="datetime-local"> Exam Start Time</label>
+      <div className="feild">
+        <label htmlFor="datetime-local"> Exam Start Time</label>
       <input
         type="datetime-local"
         value={startTime}
         onChange={(e) => setStartTime(e.target.value)}
       />
+      </div>
+      
+     </div>
 
-      <label htmlFor="number">Exam Duration</label>
+      <div className="flex-input">
+        <div className="feild">
+         <label htmlFor="number">Exam Duration (Minuites)</label>
       <input 
         type="number"
         value={duration}
         onChange={(e) => setDuration(Number(e.target.value))}
       />
+      </div>
 
-      <label htmlFor="number">Number of Set Questions</label>
+      <div className="feild">
+         <label htmlFor="number">Number of Set Questions</label>
       <input
         type="number"
         value={totalQuestions}
         onChange={(e) => setTotalQuestions(Number(e.target.value))}
       />
 
-      <label htmlFor="number">Number of Questions per Student</label>
+      </div>
+      </div>
+
+      <div className="feild">
+         <label htmlFor="number">Number of Questions per Student</label>
       <input
         type="number"
         value={questionsPerStudent}
@@ -224,17 +247,30 @@ export default function ExamUpload() {
           setQuestionsPerStudent(Number(e.target.value))
         }
       />
+      </div>
 
-      <textarea
+      <div className="feild">
+         <textarea
         placeholder="Upload CBT questions, With asterics [*] on the correct answers"
         rows={12}
         value={rawText}
         onChange={(e) => setRawText(e.target.value)}
       />
+      </div>
+
+    
+
+     
+
+     
+     
+
+     
 
       <LoadingButton onClick={handleUpload} loading={loading}>
         {isEditing ? (loading ? "Saving..." : "Save Changes") : (loading ? "Uploading..." : "Upload Exam")}
       </LoadingButton>
     </div>
+      </div> 
   );
 }

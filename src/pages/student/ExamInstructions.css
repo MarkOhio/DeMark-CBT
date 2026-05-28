@@ -5,6 +5,89 @@
   height: 100vh;
   margin: auto 10vw;
 }
+.stud-info button:hover{
+  background: #1a56ff;
+  color: #fff;
+
+}
+.stud-info h1{
+  font-family: var(--font-head);
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
+
+}
+.examin-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.back-btn{
+  background: transparent;
+  border: none;
+  color: #1a56ff;
+  font-size: 14px;
+  padding: 2px 4px;
+  cursor: pointer;
+  font-weight: 500;
+  width: fit-content;
+}
+.stud-info h2{
+  font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+}
+.inst{
+  font-size: 13px;
+    color: #555;
+    margin-bottom: 28px;
+}
+.exam-inst-title{
+  display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(26, 86, 255, .12);
+    border: 1px solid rgba(26, 86, 255, .2);
+    color:#1a56ff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+  
+    letter-spacing: .4px;
+    text-transform: uppercase;
+}
+.exam-info-tab {
+  display: flex;
+  justify-content: space-between; 
+  background: #0f172a; 
+  border: 1px solid #334155;
+ 
+    gap: 10px;  
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 14px; 
+}
+.info-item {
+  text-align: center;
+  flex: 1;
+}
+.info-label {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+.info-value {
+      font-size: 13px;
+    color: #ffffff;
+    font-weight: 500;
+}
 .exam-instructions {
   max-width: 500px;
   margin: 32px auto;
@@ -38,4 +121,20 @@ input, select {
   border: 1px solid #334155;
   background-color: #0f172a;
   color: #e5e7eb;
+}
+
+
+.start{
+  width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: .3px;
+    transition: background .15s;
 }

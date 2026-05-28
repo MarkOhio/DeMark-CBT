@@ -12,20 +12,156 @@
 }
 
 .login-choice {
-  width: 100%;
+  /* width: 100%;
   max-width: 360px;
   background-color: var(--bg-surface);
   border-radius: var(--radius);
   padding: var(--space-xl);
   text-align: center;
-  gap: 2vh;
+  gap: 2vh; */
+display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3vh;
 }
 #login-btn{
   margin: 1vh 0;
+      width: 180px;
+    height: 200px;
+    background: #111118;
+    border: 1.5px solid #222;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all .2s;
 }
-.login-choice h2{
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: var(--space-md);
+
+#login-btn:hover{
+    border-color: var(--accent);
+    background: #0d1224;
+    transform: translateY(-4px);
+}
+
+ .role-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: #1a1a28;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .role-card-icon svg { width: 28px; height: 28px; }
+  .role-card span {
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 700;
+    color: #ccc;
+  }
+
+
+
+
+.login-choice h1{
+  font-size: 48px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 0;
 }
  
+.role-brand{
+  text-align: center;
+}
+.role-brand h1 em {
+    font-style: normal;
+    color: var(--accent);
+}
+.role-brand p {
+    color: #666;
+    font-size: 13px;
+    margin-top: 8px;
+}
+.role-footer {
+    color: #333;
+    font-size: 11px;
+}
+#stud-icon{
+      background: rgba(0, 201, 107, .15);
+}
+#admin-icon{
+     background: rgba(26, 86, 255, .15);
+}
+
+
+
+.admin-login h2{
+  margin-left: 5px;
+}
+.admin-login-title{
+  display:  flex; 
+  align-items: center;
+}
+.admin-login-title svg { width: 27px; height: 24px;  color: #1a56ff;}
+ .role-card-icon2 {
+    width: 24px;
+    height: 24px;
+    border-radius: 14px;
+    background: #1a1a28;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .admin-login-btn{
+    display: flex;
+  }
+  .admin-login-btn button{ 
+    height: 38px;
+    padding: 4px 7px; 
+  }
+ 
+  .back{
+    margin-left: 2vw;
+    background: var(--upcoming);
+    width: 20%;
+  }
+  .back:hover{
+    background: #be801b;
+  }
+
+.legal-links {
+  display: grid;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin-top: .2rem;
+  text-align:center;
+  color: #94a3b8;
+  font-size: 0.88rem;
+}
+
+.legal-links a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+.legal-links span {
+  color: #94a3b8;
+}
+.under-links{
+  gap:10px;
+  display:flex;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+ #login-btns{
+  display:flex;
+  gap:15px;
+}
+}

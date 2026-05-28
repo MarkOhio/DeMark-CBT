@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT Platform — UI Wireframe</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f5f4ef;
+    --card: #ffffff;
+    --accent: #1a56ff;
+    --accent2: #ff4d2e;
+    --success: #00c96b;
+    --warn: #ffb020;
+    --muted: #8b8fa8;
+    --border: #e2e1da;
+    --sidebar-w: 220px;
+    --radius: 12px;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── PAGE NAV ────────────────────────────────── */
+  #page-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 9999;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  #page-nav::-webkit-scrollbar { display: none; }
+  #page-nav span {
+    color: #888;
+    font-family: var(--font-body);
+    font-size: 11px;
+    white-space: nowrap;
+    margin-right: 4px;
+  }
+  .pnav-btn {
+    background: #1e1e2a;
+    border: 1px solid #333;
+    color: #ccc;
+    font-family: var(--font-body);
+    font-size: 11px;
+    padding: 5px 11px;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .15s;
+  }
+  .pnav-btn:hover, .pnav-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* ── PAGE SYSTEM ─────────────────────────────── */
+  .page { display: none; min-height: 100vh; padding-top: 42px; }
+  .page.active { display: flex; flex-direction: column; }
+
+  /* ── LAYOUT SHELL ────────────────────────────── */
+  .shell {
+    display: flex;
+    flex: 1;
+    min-height: calc(100vh - 42px);
+  }
+
+  /* ── SIDEBAR ─────────────────────────────────── */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    padding: 28px 16px;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .sidebar-logo {
+    font-family: var(--font-head);
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+    padding: 0 6px 20px;
+    border-bottom: 1px solid #222;
+    margin-bottom: 10px;
+  }
+  .sidebar-logo span { color: var(--accent); }
+  .sidebar-label {
+    font-size: 10px;
+    color: #444;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 6px;
+    margin-top: 10px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: #888;
+    font-size: 13.5px;
+    cursor: pointer;
+    transition: all .15s;
+    text-decoration: none;
+  }
+  .nav-item:hover { background: #1a1a26; color: #ddd; }
+  .nav-item.active { background: var(--accent); color: #fff; }
+  .nav-item.danger { color: var(--accent2); }
+  .nav-item.danger:hover { background: #2a1010; }
+  .nav-icon { width: 16px; height: 16px; flex-shrink: 0; opacity: .8; }
+
+  /* ── MAIN CONTENT ────────────────────────────── */
+  .main {
+    flex: 1;
+    background: var(--paper);
+    overflow-y: auto;
+    padding: 36px 40px;
+  }
+
+  /* ── PAGE HEADERS ────────────────────────────── */
+  .page-title {
+    font-family: var(--font-head);
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.8px;
+    margin-bottom: 4px;
+  }
+  .page-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  /* ── CARDS ───────────────────────────────────── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .card-title {
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  /* ── BUTTONS ─────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all .15s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #0040e5; }
+  .btn-success { background: var(--success); color: #fff; }
+  .btn-danger { background: var(--accent2); color: #fff; }
+  .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--ink); }
+  .btn-ghost:hover { background: #f0efea; }
+  .btn-warn { background: var(--warn); color: var(--ink); }
+  .btn-sm { padding: 7px 13px; font-size: 12px; }
+
+  /* ── INPUTS ──────────────────────────────────── */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .field label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .input, .select, .textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--card);
+    outline: none;
+    transition: border-color .15s;
+  }
+  .input:focus, .select:focus, .textarea:focus { border-color: var(--accent); }
+  .textarea { resize: vertical; min-height: 100px; }
+
+  /* ── TAGS/BADGES ─────────────────────────────── */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .3px;
+  }
+  .tag-green { background: #d4f7e7; color: #007a41; }
+  .tag-blue { background: #dce8ff; color: #1a56ff; }
+  .tag-orange { background: #fff0d4; color: #b56d00; }
+  .tag-red { background: #ffe4df; color: #c0261a; }
+  .tag-gray { background: #ebebeb; color: #666; }
+
+  /* ─────────────────────────────────────────────
+     PAGE 1 — ROLE SELECT
+  ──────────────────────────────────────────────── */
+  #p-role {
+    background: var(--ink);
+    align-items: center;
+    justify-content: center;
+  }
+  .role-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+  .role-brand {
+    text-align: center;
+  }
+  .role-brand h1 {
+    font-family: var(--font-head);
+    font-size: 48px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+  .role-brand h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .role-brand p {
+    color: #666;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .role-cards {
+    display: flex;
+    gap: 16px;
+  }
+  .role-card {
+    width: 180px;
+    height: 200px;
+    background: #111118;
+    border: 1.5px solid #222;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .role-card:hover {
+    border-color: var(--accent);
+    background: #0d1224;
+    transform: translateY(-4px);
+  }
+  .role-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: #1a1a28;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .role-card-icon svg { width: 28px; height: 28px; }
+  .role-card span {
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 700;
+    color: #ccc;
+  }
+  .role-card.admin .role-card-icon { background: rgba(26,86,255,.15); }
+  .role-card.admin .role-card-icon svg { stroke: var(--accent); }
+  .role-card.student .role-card-icon { background: rgba(0,201,107,.15); }
+  .role-card.student .role-card-icon svg { stroke: var(--success); }
+  .role-footer { color: #333; font-size: 11px; }
+
+  /* ─────────────────────────────────────────────
+     PAGE 2 — STUDENT DETAILS (pre-exam)
+  ──────────────────────────────────────────────── */
+  #p-student-details {
+    background: var(--ink);
+    align-items: center;
+    justify-content: center;
+  }
+  .details-box {
+    width: 100%;
+    max-width: 460px;
+    background: #111118;
+    border: 1.5px solid #1e1e2e;
+    border-radius: 18px;
+    padding: 40px 36px;
+  }
+  .details-box .exam-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(26,86,255,.12);
+    border: 1px solid rgba(26,86,255,.2);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+  }
+  .details-box h2 {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  .details-box p {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 28px;
+  }
+  .details-box .input, .details-box .select {
+    background: #0d0d18;
+    border-color: #222;
+    color: #ddd;
+    margin-bottom: 12px;
+  }
+  .details-box .input::placeholder { color: #444; }
+  .details-box .input:focus, .details-box .select:focus { border-color: var(--accent); }
+  .details-row {
+    display: flex;
+    gap: 10px;
+    background: #0a0a14;
+    border: 1px solid #1a1a2a;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    gap: 24px;
+  }
+  .details-row .dr-item { flex: 1; }
+  .details-row .dr-item span {
+    display: block;
+    font-size: 10px;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: 3px;
+  }
+  .details-row .dr-item strong {
+    font-size: 13px;
+    color: #aaa;
+    font-weight: 500;
+  }
+  .btn-start {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: .3px;
+    transition: background .15s;
+  }
+  .btn-start:hover { background: #0040e5; }
+
+  /* ─────────────────────────────────────────────
+     PAGE 3 — STUDENT DASHBOARD
+  ──────────────────────────────────────────────── */
+  .exam-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .exam-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .15s, transform .15s;
+    cursor: pointer;
+  }
+  .exam-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .exam-card.active-exam { border-color: var(--success); }
+  .exam-card.active-exam::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--success);
+  }
+  .exam-card.upcoming-exam::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--warn);
+  }
+  .exam-card-code {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: 6px;
+  }
+  .exam-card-title {
+    font-family: var(--font-head);
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .exam-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 14px;
+  }
+  .exam-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .exam-meta-row svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .section-head h2 {
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .section-divider {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    background: var(--card);
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius);
+    font-size: 14px;
+  }
+  .empty-state svg { width: 36px; height: 36px; opacity: .3; margin-bottom: 10px; }
+
+  /* ─────────────────────────────────────────────
+     PAGE 4 — EXAM PAGE
+  ──────────────────────────────────────────────── */
+  #p-exam {
+    flex-direction: column;
+  }
+  .exam-topbar {
+    background: var(--ink);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 42px;
+    z-index: 100;
+  }
+  .exam-topbar-left {
+    display: flex;
+    flex-direction: column;
+  }
+  .exam-topbar-left .exam-label {
+    font-size: 10px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .exam-topbar-left .exam-name {
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .timer-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #1a1a26;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 8px 16px;
+  }
+  .timer-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--success);
+    animation: pulse 1s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .3; }
+  }
+  .timer-val {
+    font-family: var(--font-head);
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  .exam-body {
+    display: flex;
+    flex: 1;
+    gap: 0;
+  }
+  .exam-q-panel {
+    flex: 1;
+    padding: 32px 40px;
+    overflow-y: auto;
+  }
+  .exam-sidebar {
+    width: 200px;
+    background: var(--card);
+    border-left: 1px solid var(--border);
+    padding: 20px 14px;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+  .exam-sidebar h3 {
+    font-family: var(--font-head);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .q-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+  }
+  .q-num {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #f0efea;
+    color: var(--muted);
+    transition: all .1s;
+  }
+  .q-num.answered { background: var(--success); color: #fff; }
+  .q-num.current { background: var(--accent); color: #fff; }
+  .q-num.flagged { background: var(--warn); color: var(--ink); }
+  .question-block {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .q-number {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: 10px;
+  }
+  .q-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .12s;
+    font-size: 14px;
+  }
+  .option:hover { border-color: var(--accent); background: #f0f4ff; }
+  .option.selected { border-color: var(--accent); background: #dce8ff; }
+  .option-letter {
+    width: 26px; height: 26px;
+    border-radius: 6px;
+    background: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .option.selected .option-letter {
+    background: var(--accent);
+    color: #fff;
+  }
+  .exam-nav-bar {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .exam-nav-bar .progress-info {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .exam-nav-bar .progress-info strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .progress-bar-wrap {
+    flex: 1;
+    max-width: 300px;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    margin: 0 20px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    width: 24%;
+    transition: width .3s;
+  }
+
+  /* ─────────────────────────────────────────────
+     PAGE 5 — STUDENT FEEDBACK
+  ──────────────────────────────────────────────── */
+  .feedback-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .feedback-form-card { padding: 28px; }
+  .feedback-list-card { padding: 28px; }
+  .feedback-list-title {
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .feedback-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .feedback-item:last-child { border-bottom: none; }
+  .feedback-item-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  .feedback-item-subject {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .feedback-item-meta {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .feedback-item-msg {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .feedback-reply {
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: #f0f4ff;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-size: 12px;
+    color: #555;
+  }
+  .feedback-reply .reply-label {
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .star-row { display: flex; gap: 4px; margin-bottom: 16px; }
+  .star { font-size: 22px; color: #ddd; cursor: pointer; transition: color .1s; }
+  .star.filled { color: var(--warn); }
+  .rating-type {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .rtype-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    background: transparent;
+    color: var(--muted);
+    transition: all .12s;
+  }
+  .rtype-btn.active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
+  }
+
+  /* ─────────────────────────────────────────────
+     PAGE 6 — ADMIN DASHBOARD
+  ──────────────────────────────────────────────── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::after {
+    content: '';
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    opacity: .06;
+  }
+  .stat-card.s1::after { background: var(--accent); }
+  .stat-card.s2::after { background: var(--success); }
+  .stat-card.s3::after { background: var(--warn); }
+  .stat-card.s4::after { background: var(--accent2); }
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: 8px;
+  }
+  .stat-val {
+    font-family: var(--font-head);
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-change { font-size: 11px; color: var(--muted); }
+  .admin-exam-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .admin-exam-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    transition: border-color .15s;
+  }
+  .admin-exam-card:hover { border-color: var(--accent); }
+  .admin-exam-card .aec-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .admin-exam-card .aec-title {
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .admin-exam-card .aec-meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .admin-exam-card .aec-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ─────────────────────────────────────────────
+     PAGE 7 — ADMIN UPLOAD EXAM
+  ──────────────────────────────────────────────── */
+  .upload-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .upload-form-card { padding: 28px; }
+  .upload-guide-card { padding: 24px; }
+  .upload-guide-card h3 {
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .guide-step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+  }
+  .guide-step-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .code-block {
+    background: var(--ink);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #aaffaa;
+    margin-top: 14px;
+    line-height: 1.7;
+  }
+  .code-block .c-q { color: #fff; }
+  .code-block .c-a { color: #aaa; }
+  .code-block .c-correct { color: #00e87a; }
+  .inline-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  /* ─────────────────────────────────────────────
+     PAGE 8 — ADMIN FEEDBACK
+  ──────────────────────────────────────────────── */
+  .admin-feedback-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .feedback-thread-list { display: flex; flex-direction: column; gap: 8px; }
+  .feedback-thread {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all .12s;
+  }
+  .feedback-thread:hover, .feedback-thread.selected {
+    border-color: var(--accent);
+    background: #f5f7ff;
+  }
+  .ft-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+  .ft-subject { font-weight: 600; font-size: 14px; }
+  .ft-name { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+  .ft-preview {
+    font-size: 12px;
+    color: #888;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .detail-pane {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .detail-pane-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .detail-pane-body {
+    padding: 20px;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.7;
+    min-height: 200px;
+  }
+  .detail-pane-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+  }
+  .detail-pane-footer .input { flex: 1; }
+  .admin-search-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  .admin-search-bar .input { flex: 1; }
+  .admin-search-bar .select { width: 160px; }
+
+  /* ─────────────────────────────────────────────
+     PAGE 9 — ADMIN RESULTS
+  ──────────────────────────────────────────────── */
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  .results-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--muted);
+    border-bottom: 1.5px solid var(--border);
+    background: #faf9f5;
+  }
+  .results-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink);
+  }
+  .results-table tr:hover td { background: #f9f8f3; }
+  .score-bar-wrap {
+    width: 80px;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+  .score-bar {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--success);
+  }
+  .score-bar.mid { background: var(--warn); }
+  .score-bar.low { background: var(--accent2); }
+  .exam-select-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    align-items: center;
+  }
+  .exam-select-row .select { max-width: 280px; }
+  .results-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .rs-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+  }
+  .rs-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 6px; }
+  .rs-val { font-family: var(--font-head); font-size: 24px; font-weight: 800; letter-spacing: -.5px; }
+
+  /* ─────────────────────────────────────────────
+     RESPONSIVE — MOBILE
+  ──────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 20px 16px; }
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .feedback-layout, .upload-layout, .admin-feedback-layout { grid-template-columns: 1fr; }
+    .inline-row { grid-template-columns: 1fr; }
+    .exam-sidebar { display: none; }
+    .exam-q-panel { padding: 20px 16px; }
+    .exam-nav-bar { padding: 12px 16px; }
+    .results-summary { grid-template-columns: repeat(2, 1fr); }
+    .role-cards { flex-direction: column; align-items: center; }
+    .exam-body { flex-direction: column; }
+
+    /* mobile topbar */
+    .mobile-topbar {
+      display: flex !important;
+    }
+  }
+  .mobile-topbar {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--ink);
+    position: sticky;
+    top: 42px;
+    z-index: 50;
+  }
+  .mobile-topbar .m-brand {
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .mobile-topbar .m-brand span { color: var(--accent); }
+  .hamburger {
+    width: 36px; height: 36px;
+    background: #1a1a26;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    border: 1px solid #333;
+  }
+  .hamburger div {
+    width: 16px; height: 2px;
+    background: #fff;
+    border-radius: 1px;
+  }
+
+  /* ── UTILITY ─────────────────────────────────── */
+  .gap-8 { gap: 8px; }
+  .gap-10 { gap: 10px; }
+  .mt-8 { margin-top: 8px; }
+  .mt-16 { margin-top: 16px; }
+  .mt-24 { margin-top: 24px; }
+  .flex { display: flex; }
+  .flex-col { flex-direction: column; }
+  .items-center { align-items: center; }
+  .justify-between { justify-content: space-between; }
+  .w-full { width: 100%; }
+</style>
+</head>
+<body>
+
+<!-- ── PAGE NAV ─────────────────────────────── -->
+<nav id="page-nav">
+  <span>Pages →</span>
+  <button class="pnav-btn active" onclick="showPage('p-role')">① Role Select</button>
+  <button class="pnav-btn" onclick="showPage('p-student-details')">② Pre-Exam</button>
+  <button class="pnav-btn" onclick="showPage('p-student-dash')">③ Student Dashboard</button>
+  <button class="pnav-btn" onclick="showPage('p-exam')">④ Exam</button>
+  <button class="pnav-btn" onclick="showPage('p-student-feedback')">⑤ Student Feedback</button>
+  <button class="pnav-btn" onclick="showPage('p-admin-dash')">⑥ Admin Dashboard</button>
+  <button class="pnav-btn" onclick="showPage('p-admin-upload')">⑦ Upload Exam</button>
+  <button class="pnav-btn" onclick="showPage('p-admin-feedback')">⑧ Admin Feedback</button>
+  <button class="pnav-btn" onclick="showPage('p-admin-results')">⑨ Results</button>
+</nav>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 1 — ROLE SELECT
+════════════════════════════════════════════ -->
+<div id="p-role" class="page active">
+  <div class="role-wrap">
+    <div class="role-brand">
+      <h1>CBT<em>.</em>ng</h1>
+      <p>Computer Based Testing Platform</p>
+    </div>
+    <div class="role-cards">
+      <div class="role-card student" onclick="showPage('p-student-dash')">
+        <div class="role-card-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14c-4 0-6 2-6 3v1h12v-1c0-1-2-3-6-3zm0-2a4 4 0 100-8 4 4 0 000 8z"/>
+          </svg>
+        </div>
+        <span>Student</span>
+      </div>
+      <div class="role-card admin" onclick="showPage('p-admin-dash')">
+        <div class="role-card-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <span>Admin</span>
+      </div>
+    </div>
+    <p class="role-footer">Select your role to continue</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 2 — PRE-EXAM (STUDENT DETAILS)
+════════════════════════════════════════════ -->
+<div id="p-student-details" class="page" style="background:var(--ink);align-items:center;justify-content:center;">
+  <div class="details-box">
+    <div class="exam-badge">
+      <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
+      COS101 — Introduction to Computing
+    </div>
+    <h2>Verify Your Identity</h2>
+    <p>Fill in your details below before the exam begins.</p>
+
+    <div class="details-row">
+      <div class="dr-item">
+        <span>Duration</span>
+        <strong>30 minutes</strong>
+      </div>
+      <div class="dr-item">
+        <span>Questions</span>
+        <strong>40 questions</strong>
+      </div>
+      <div class="dr-item">
+        <span>Starts</span>
+        <strong>Now</strong>
+      </div>
+    </div>
+
+    <input class="input" placeholder="Full Name" style="background:#0d0d18;border-color:#222;color:#ddd;margin-bottom:12px;width:100%;">
+    <input class="input" placeholder="Matric Number" style="background:#0d0d18;border-color:#222;color:#ddd;margin-bottom:12px;width:100%;">
+    <select class="select" style="background:#0d0d18;border-color:#222;color:#aaa;margin-bottom:24px;width:100%;">
+      <option value="">Select Level</option>
+      <option>100 Level</option>
+      <option>200 Level</option>
+    </select>
+    <button class="btn-start" onclick="showPage('p-exam')">Start Exam →</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 3 — STUDENT DASHBOARD
+════════════════════════════════════════════ -->
+<div id="p-student-dash" class="page">
+  <div class="mobile-topbar">
+    <span class="m-brand">CBT<span>.</span>ng</span>
+    <div class="hamburger"><div></div><div></div><div></div></div>
+  </div>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo">CBT<span>.</span>ng</div>
+      <div class="sidebar-label">Student</div>
+      <a class="nav-item active">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" onclick="showPage('p-student-feedback')">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h4m-8 4h16a2 2 0 002-2V6a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Feedback
+      </a>
+      <div style="flex:1"></div>
+      <a class="nav-item danger">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"/></svg>
+        Logout
+      </a>
+    </aside>
+    <main class="main">
+      <div class="page-title">Dashboard</div>
+      <div class="page-sub">Welcome back — check your available exams below.</div>
+
+      <div class="section-head">
+        <h2>Active Exams</h2>
+        <div class="section-divider"></div>
+        <span class="tag tag-green">Live</span>
+      </div>
+      <div class="exam-grid">
+        <div class="exam-card active-exam" onclick="showPage('p-student-details')">
+          <div class="exam-card-code">COS101</div>
+          <div class="exam-card-title">Intro to Computing</div>
+          <div class="exam-meta">
+            <div class="exam-meta-row">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>
+              30 minutes
+            </div>
+            <div class="exam-meta-row">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              40 questions
+            </div>
+          </div>
+          <button class="btn btn-success btn-sm w-full">Enter Exam →</button>
+        </div>
+      </div>
+
+      <div class="section-head" style="margin-top:8px;">
+        <h2>Upcoming Exams</h2>
+        <div class="section-divider"></div>
+        <span class="tag tag-orange">Scheduled</span>
+      </div>
+      <div class="exam-grid">
+        <div class="exam-card upcoming-exam">
+          <div class="exam-card-code">MTH101</div>
+          <div class="exam-card-title">Basic Mathematics</div>
+          <div class="exam-meta">
+            <div class="exam-meta-row">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
+              Apr 14, 2026 — 1:13 AM
+            </div>
+            <div class="exam-meta-row">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>
+              45 minutes
+            </div>
+          </div>
+          <span class="tag tag-orange" style="font-size:12px;">Upcoming</span>
+        </div>
+        <div class="exam-card upcoming-exam">
+          <div class="exam-card-code">ENG102</div>
+          <div class="exam-card-title">Use of English</div>
+          <div class="exam-meta">
+            <div class="exam-meta-row">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
+              Apr 20, 2026 — 9:00 AM
+            </div>
+            <div class="exam-meta-row">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>
+              60 minutes
+            </div>
+          </div>
+          <span class="tag tag-orange" style="font-size:12px;">Upcoming</span>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 4 — EXAM
+════════════════════════════════════════════ -->
+<div id="p-exam" class="page" style="flex-direction:column;">
+  <!-- Exam Top Bar -->
+  <div class="exam-topbar">
+    <div class="exam-topbar-left">
+      <span class="exam-label">COS101 — Intro to Computing</span>
+      <span class="exam-name">Semester 1 CBT Examination</span>
+    </div>
+    <div class="timer-pill">
+      <div class="timer-dot"></div>
+      <span class="timer-val" id="timer-display">29:30</span>
+    </div>
+  </div>
+
+  <div class="exam-body" style="flex:1;">
+    <!-- Questions -->
+    <div class="exam-q-panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <span style="font-size:13px;color:var(--muted);">Showing <strong style="color:var(--ink);">Question 1</strong> of 40</span>
+        <button class="btn btn-ghost btn-sm" style="gap:6px;">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6H11l-1-1H5a2 2 0 00-2 2z"/></svg>
+          Flag
+        </button>
+      </div>
+
+      <div class="question-block">
+        <div class="q-number">Question 1 of 40</div>
+        <div class="q-text">The brain of the computer is known as:</div>
+        <div class="options-list">
+          <div class="option selected">
+            <div class="option-letter">A</div>
+            Central Processing Unit (CPU)
+          </div>
+          <div class="option">
+            <div class="option-letter">B</div>
+            Random Access Memory (RAM)
+          </div>
+          <div class="option">
+            <div class="option-letter">C</div>
+            Hard Disk Drive
+          </div>
+          <div class="option">
+            <div class="option-letter">D</div>
+            Monitor
+          </div>
+        </div>
+      </div>
+
+      <div class="question-block">
+        <div class="q-number">Question 2 of 40</div>
+        <div class="q-text">Which of the following is an example of system software?</div>
+        <div class="options-list">
+          <div class="option">
+            <div class="option-letter">A</div>
+            Microsoft Word
+          </div>
+          <div class="option">
+            <div class="option-letter">B</div>
+            Windows Operating System
+          </div>
+          <div class="option">
+            <div class="option-letter">C</div>
+            CorelDRAW
+          </div>
+          <div class="option">
+            <div class="option-letter">D</div>
+            Google Chrome
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q Navigator Sidebar -->
+    <aside class="exam-sidebar">
+      <h3>Navigator</h3>
+      <div class="q-grid" id="q-grid">
+        <!-- generated by JS -->
+      </div>
+      <div style="margin-top:20px;display:flex;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);">
+          <div style="width:12px;height:12px;border-radius:3px;background:var(--success);"></div> Answered
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);">
+          <div style="width:12px;height:12px;border-radius:3px;background:var(--accent);"></div> Current
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);">
+          <div style="width:12px;height:12px;border-radius:3px;background:var(--warn);"></div> Flagged
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);">
+          <div style="width:12px;height:12px;border-radius:3px;background:#f0efea;border:1px solid var(--border)"></div> Unanswered
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Bottom Nav Bar -->
+  <div class="exam-nav-bar">
+    <div class="progress-info"><strong>12</strong> / 40 answered</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-ghost btn-sm">← Previous</button>
+      <button class="btn btn-primary btn-sm">Next →</button>
+      <button class="btn btn-danger btn-sm" style="margin-left:8px;">Submit Exam</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 5 — STUDENT FEEDBACK
+════════════════════════════════════════════ -->
+<div id="p-student-feedback" class="page">
+  <div class="mobile-topbar">
+    <span class="m-brand">CBT<span>.</span>ng</span>
+    <div class="hamburger"><div></div><div></div><div></div></div>
+  </div>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo">CBT<span>.</span>ng</div>
+      <div class="sidebar-label">Student</div>
+      <a class="nav-item" onclick="showPage('p-student-dash')">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item active">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h4m-8 4h16a2 2 0 002-2V6a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Feedback
+      </a>
+      <div style="flex:1"></div>
+      <a class="nav-item danger">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7"/></svg>
+        Logout
+      </a>
+    </aside>
+    <main class="main">
+      <div class="page-title">Feedback</div>
+      <div class="page-sub">Submit complaints and track responses from admin.</div>
+
+      <div class="feedback-layout">
+        <!-- Form -->
+        <div class="card feedback-form-card">
+          <div class="card-title" style="margin-bottom:18px;">New Entry</div>
+          <div class="field">
+            <label>Full Name</label>
+            <input class="input" placeholder="Your full name">
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input class="input" placeholder="your@email.com" type="email">
+          </div>
+          <div class="inline-row">
+            <div class="field">
+              <label>Type</label>
+              <select class="select">
+                <option>Complaint</option>
+                <option>Suggestion</option>
+                <option>Enquiry</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Priority</label>
+              <select class="select">
+                <option>Normal</option>
+                <option>Urgent</option>
+                <option>Low</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Subject</label>
+            <input class="input" placeholder="Brief subject line">
+          </div>
+          <div class="field">
+            <label>Message</label>
+            <textarea class="textarea" placeholder="Describe your issue or feedback..."></textarea>
+          </div>
+          <div class="field">
+            <label>Rating (optional)</label>
+            <div class="star-row">
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+          </div>
+          <button class="btn btn-primary w-full" style="justify-content:center;">Submit Feedback</button>
+        </div>
+
+        <!-- Entries list -->
+        <div class="card feedback-list-card">
+          <div class="feedback-list-title">My Submissions</div>
+
+          <div class="feedback-item">
+            <div class="feedback-item-head">
+              <span class="feedback-item-subject">Exam portal slow during peak</span>
+              <span class="tag tag-green">Open</span>
+            </div>
+            <div class="feedback-item-meta">Mar 14, 2026 • Complaint • Normal</div>
+            <div class="feedback-item-msg">The exam portal was very slow when many students tried to log in simultaneously. Pages took over 30 seconds to load...</div>
+            <div class="feedback-reply">
+              <div class="reply-label">Admin Reply</div>
+              We've upgraded the server capacity. This should be resolved by next session.
+            </div>
+          </div>
+
+          <div class="feedback-item">
+            <div class="feedback-item-head">
+              <span class="feedback-item-subject">Timer disappeared mid-exam</span>
+              <span class="tag tag-red">Closed</span>
+            </div>
+            <div class="feedback-item-meta">Mar 10, 2026 • Complaint • Urgent</div>
+            <div class="feedback-item-msg">The countdown timer vanished after I answered question 12. I had no way to track remaining time.</div>
+          </div>
+
+          <div class="feedback-item">
+            <div class="feedback-item-head">
+              <span class="feedback-item-subject">Add dark mode option</span>
+              <span class="tag tag-gray">Pending</span>
+            </div>
+            <div class="feedback-item-meta">Mar 8, 2026 • Suggestion • Low</div>
+            <div class="feedback-item-msg">Please consider adding a dark mode for students who prefer low-brightness environments.</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 6 — ADMIN DASHBOARD
+════════════════════════════════════════════ -->
+<div id="p-admin-dash" class="page">
+  <div class="mobile-topbar">
+    <span class="m-brand">CBT<span>.</span>ng</span>
+    <div class="hamburger"><div></div><div></div><div></div></div>
+  </div>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo">CBT<span>.</span>ng</div>
+      <div class="sidebar-label">Admin</div>
+      <a class="nav-item active">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" onclick="showPage('p-admin-upload')">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12V4m0 0l-3 3m3-3l3 3"/></svg>
+        Upload Exam
+      </a>
+      <a class="nav-item" onclick="showPage('p-admin-feedback')">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h4m-8 4h16a2 2 0 002-2V6a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Feedback
+      </a>
+      <a class="nav-item" onclick="showPage('p-admin-results')">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        Results
+      </a>
+      <div style="flex:1"></div>
+      <a class="nav-item danger">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 16l4-4m0 0l-4-4m4 4H7"/></svg>
+        Logout
+      </a>
+    </aside>
+    <main class="main">
+      <div class="page-title">Admin Dashboard</div>
+      <div class="page-sub">Overview of all exams, students, and activity.</div>
+
+      <div class="stat-row">
+        <div class="stat-card s1">
+          <div class="stat-label">Total Exams</div>
+          <div class="stat-val">14</div>
+          <div class="stat-change">3 active now</div>
+        </div>
+        <div class="stat-card s2">
+          <div class="stat-label">Students Registered</div>
+          <div class="stat-val">312</div>
+          <div class="stat-change">+28 this week</div>
+        </div>
+        <div class="stat-card s3">
+          <div class="stat-label">Submissions</div>
+          <div class="stat-val">867</div>
+          <div class="stat-change">Across all exams</div>
+        </div>
+        <div class="stat-card s4">
+          <div class="stat-label">Pending Feedback</div>
+          <div class="stat-val">5</div>
+          <div class="stat-change">Needs response</div>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <h2>Untaken Exams</h2>
+        <div class="section-divider"></div>
+        <button class="btn btn-primary btn-sm" onclick="showPage('p-admin-upload')">+ New Exam</button>
+      </div>
+      <div class="admin-exam-grid">
+        <div class="admin-exam-card">
+          <div class="aec-top">
+            <div>
+              <div class="aec-title">werey1</div>
+              <div class="aec-meta">Course Code: 1234</div>
+            </div>
+            <span class="tag tag-orange">Upcoming</span>
+          </div>
+          <div class="aec-meta">Start: 3/12/2026 12:45 PM</div>
+          <div class="aec-meta">Duration: 30 mins</div>
+          <div class="aec-actions">
+            <button class="btn btn-primary btn-sm">Edit</button>
+            <button class="btn btn-ghost btn-sm">Preview</button>
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </div>
+        </div>
+        <div class="admin-exam-card">
+          <div class="aec-top">
+            <div>
+              <div class="aec-title">Test 4</div>
+              <div class="aec-meta">Course Code: Dude66788</div>
+            </div>
+            <span class="tag tag-orange">Upcoming</span>
+          </div>
+          <div class="aec-meta">Start: 3/13/2026 1:03 AM</div>
+          <div class="aec-meta">Duration: 30 mins</div>
+          <div class="aec-actions">
+            <button class="btn btn-primary btn-sm">Edit</button>
+            <button class="btn btn-ghost btn-sm">Preview</button>
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </div>
+        </div>
+        <div class="admin-exam-card">
+          <div class="aec-top">
+            <div>
+              <div class="aec-title">Test 5</div>
+              <div class="aec-meta">Course Code: 13468i</div>
+            </div>
+            <span class="tag tag-blue">Scheduled</span>
+          </div>
+          <div class="aec-meta">Start: 4/14/2026 1:13 AM</div>
+          <div class="aec-meta">Duration: 30 mins</div>
+          <div class="aec-actions">
+            <button class="btn btn-primary btn-sm">Edit</button>
+            <button class="btn btn-ghost btn-sm">Preview</button>
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 7 — ADMIN UPLOAD EXAM
+════════════════════════════════════════════ -->
+<div id="p-admin-upload" class="page">
+  <div class="mobile-topbar">
+    <span class="m-brand">CBT<span>.</span>ng</span>
+    <div class="hamburger"><div></div><div></div><div></div></div>
+  </div>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo">CBT<span>.</span>ng</div>
+      <div class="sidebar-label">Admin</div>
+      <a class="nav-item" onclick="showPage('p-admin-dash')">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item active">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12V4m0 0l-3 3m3-3l3 3"/></svg>
+        Upload Exam
+      </a>
+      <a class="nav-item" onclick="showPage('p-admin-feedback')">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h4m-8 4h16a2 2 0 002-2V6a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Feedback
+      </a>
+      <a class="nav-item" onclick="showPage('p-admin-results')">
+        <svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        Results
+      </a>
+      <div style="flex:1"></div>
+      <a class="nav-item danger"><svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 16l4-4m0 0l-4-4m4 4H7"/></svg>Logout</a>
+    </aside>
+    <main class="main">
+      <div class="page-title">Upload Exam</div>
+      <div class="page-sub">Create a new exam and paste in your question set.</div>
+
+      <div class="upload-layout">
+        <div class="card upload-form-card">
+          <div class="field">
+            <label>Exam Title</label>
+            <input class="input" placeholder="e.g. Introduction to Computing — Test 1">
+          </div>
+          <div class="inline-row">
+            <div class="field">
+              <label>Course Code</label>
+              <input class="input" placeholder="e.g. COS101">
+            </div>
+            <div class="field">
+              <label>Exam Start Time</label>
+              <input class="input" type="datetime-local">
+            </div>
+          </div>
+          <div class="inline-row">
+            <div class="field">
+              <label>Duration (minutes)</label>
+              <input class="input" type="number" value="30">
+            </div>
+            <div class="field">
+              <label>Total Questions in Set</label>
+              <input class="input" type="number" value="50">
+            </div>
+          </div>
+          <div class="field">
+            <label>Questions per Student (randomised)</label>
+            <input class="input" type="number" value="40">
+          </div>
+          <div class="field">
+            <label>Paste Questions</label>
+            <textarea class="textarea" style="min-height:180px;" placeholder="Paste CBT questions here. Mark correct answers with [*]..."></textarea>
+          </div>
+          <button class="btn btn-primary w-full" style="justify-content:center;padding:13px;">Upload Exam</button>
+        </div>
+
+        <div>
+          <div class="card upload-guide-card" style="margin-bottom:16px;">
+            <h3>Question Format Guide</h3>
+            <div class="guide-step">
+              <div class="guide-step-num">1</div>
+              <div>Each question starts on a new line, followed by options A–D. Mark the correct answer with <strong>[*]</strong>.</div>
+            </div>
+            <div class="guide-step">
+              <div class="guide-step-num">2</div>
+              <div>Separate each question block with a blank line.</div>
+            </div>
+            <div class="guide-step">
+              <div class="guide-step-num">3</div>
+              <div>The system will auto-shuffle questions and options per student.</div>
+            </div>
+            <div class="code-block">
+              <div class="c-q">What is the brain of a computer?</div>
+              <div class="c-a">A. Hard Disk Drive</div>
+              <div class="c-correct">B. CPU [*]</div>
+              <div class="c-a">C. RAM</div>
+              <div class="c-a">D. Monitor</div>
+            </div>
+          </div>
+
+          <div class="card" style="padding:20px;">
+            <div style="font-size:13px;font-weight:600;margin-bottom:10px;">Tips</div>
+            <ul style="font-size:13px;color:var(--muted);line-height:2;padding-left:18px;">
+              <li>Questions per student must be ≤ total questions in set</li>
+              <li>Exam activates automatically at the start time</li>
+              <li>You can edit the exam before it goes live</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 8 — ADMIN FEEDBACK
+════════════════════════════════════════════ -->
+<div id="p-admin-feedback" class="page">
+  <div class="mobile-topbar">
+    <span class="m-brand">CBT<span>.</span>ng</span>
+    <div class="hamburger"><div></div><div></div><div></div></div>
+  </div>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo">CBT<span>.</span>ng</div>
+      <div class="sidebar-label">Admin</div>
+      <a class="nav-item" onclick="showPage('p-admin-dash')"><svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+      <a class="nav-item" onclick="showPage('p-admin-upload')"><svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12V4m0 0l-3 3m3-3l3 3"/></svg>Upload Exam</a>
+      <a class="nav-item active"><svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h4m-8 4h16a2 2 0 002-2V6a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>Feedback</a>
+      <a class="nav-item" onclick="showPage('p-admin-results')"><svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>Results</a>
+      <div style="flex:1"></div>
+      <a class="nav-item danger"><svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 16l4-4m0 0l-4-4m4 4H7"/></svg>Logout</a>
+    </aside>
+    <main class="main">
+      <div class="page-title">Feedback Panel</div>
+      <div class="page-sub">Read, respond to, and manage student feedback.</div>
+
+      <div class="admin-search-bar">
+        <input class="input" placeholder="Search by name, subject, or keyword...">
+        <select class="select">
+          <option>All Types</option>
+          <option>Complaint</option>
+          <option>Suggestion</option>
+          <option>Enquiry</option>
+        </select>
+        <select class="select">
+          <option>All Status</option>
+          <option>Open</option>
+          <option>Closed</option>
+          <option>Pending</option>
+        </select>
+      </div>
+
+      <div class="admin-feedback-layout">
+        <div class="feedback-thread-list">
+          <div class="feedback-thread selected">
+            <div class="ft-top">
+              <span class="ft-subject">Exam portal slow during peak</span>
+              <span class="tag tag-green">Open</span>
+            </div>
+            <div class="ft-name">Mark • obosohio@gmail.com</div>
+            <div class="ft-preview">The exam portal was very slow when many students tried to log in simultaneously...</div>
+          </div>
+          <div class="feedback-thread">
+            <div class="ft-top">
+              <span class="ft-subject">Timer disappeared mid-exam</span>
+              <span class="tag tag-red">Closed</span>
+            </div>
+            <div class="ft-name">Ada • ada@school.edu</div>
+            <div class="ft-preview">The countdown timer vanished after I answered question 12...</div>
+          </div>
+          <div class="feedback-thread">
+            <div class="ft-top">
+              <span class="ft-subject">Add dark mode option</span>
+              <span class="tag tag-gray">Pending</span>
+            </div>
+            <div class="ft-name">Emeka • emeka@school.edu</div>
+            <div class="ft-preview">Please consider adding a dark mode for students who prefer...</div>
+          </div>
+        </div>
+
+        <div class="detail-pane">
+          <div class="detail-pane-header">
+            <div>
+              <div style="font-family:var(--font-head);font-size:16px;font-weight:700;">Exam portal slow during peak</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:2px;">Mark • obosohio@gmail.com • Mar 14, 2026 1:31 AM • Complaint • Normal</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-ghost btn-sm">Toggle Status</button>
+              <button class="btn btn-danger btn-sm">Delete</button>
+            </div>
+          </div>
+          <div class="detail-pane-body">
+            The exam portal was very slow when many students tried to log in simultaneously. Pages took over 30 seconds to load, and I almost ran out of time before even starting the exam. This needs to be fixed before the next session.
+          </div>
+          <div class="detail-pane-footer">
+            <input class="input" placeholder="Write a reply to this student...">
+            <button class="btn btn-primary">Send Reply</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 9 — ADMIN RESULTS
+════════════════════════════════════════════ -->
+<div id="p-admin-results" class="page">
+  <div class="mobile-topbar">
+    <span class="m-brand">CBT<span>.</span>ng</span>
+    <div class="hamburger"><div></div><div></div><div></div></div>
+  </div>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo">CBT<span>.</span>ng</div>
+      <div class="sidebar-label">Admin</div>
+      <a class="nav-item" onclick="showPage('p-admin-dash')"><svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+      <a class="nav-item" onclick="showPage('p-admin-upload')"><svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12V4m0 0l-3 3m3-3l3 3"/></svg>Upload Exam</a>
+      <a class="nav-item" onclick="showPage('p-admin-feedback')"><svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h4m-8 4h16a2 2 0 002-2V6a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>Feedback</a>
+      <a class="nav-item active"><svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>Results</a>
+      <div style="flex:1"></div>
+      <a class="nav-item danger"><svg class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 16l4-4m0 0l-4-4m4 4H7"/></svg>Logout</a>
+    </aside>
+    <main class="main">
+      <div class="page-title">Exam Results</div>
+      <div class="page-sub">View and analyse student performance per exam.</div>
+
+      <div class="exam-select-row">
+        <select class="select">
+          <option>Select Exam — Intro to Computing (COS101)</option>
+          <option>Test 1 — MTH101</option>
+          <option>werey1 — 1234</option>
+        </select>
+        <button class="btn btn-ghost btn-sm">Export CSV</button>
+      </div>
+
+      <div class="results-summary">
+        <div class="rs-card">
+          <div class="rs-label">Total Submissions</div>
+          <div class="rs-val">48</div>
+        </div>
+        <div class="rs-card">
+          <div class="rs-label">Average Score</div>
+          <div class="rs-val">71<span style="font-size:16px;font-weight:400;">%</span></div>
+        </div>
+        <div class="rs-card">
+          <div class="rs-label">Highest Score</div>
+          <div class="rs-val">96<span style="font-size:16px;font-weight:400;">%</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Matric No.</th>
+              <th>Level</th>
+              <th>Score</th>
+              <th>Time Taken</th>
+              <th>Submitted</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><strong>Adaeze Okonkwo</strong></td>
+              <td>2022/1234</td>
+              <td>100L</td>
+              <td>
+                <span class="score-bar-wrap"><span class="score-bar" style="width:96%"></span></span>
+                <strong>96%</strong>
+              </td>
+              <td>22 min</td>
+              <td style="color:var(--muted);font-size:12px;">Mar 14, 2026</td>
+              <td><button class="btn btn-ghost btn-sm">View</button></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><strong>Mark Obosohio</strong></td>
+              <td>2022/5678</td>
+              <td>100L</td>
+              <td>
+                <span class="score-bar-wrap"><span class="score-bar" style="width:82%"></span></span>
+                <strong>82%</strong>
+              </td>
+              <td>28 min</td>
+              <td style="color:var(--muted);font-size:12px;">Mar 14, 2026</td>
+              <td><button class="btn btn-ghost btn-sm">View</button></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><strong>Emeka Chukwu</strong></td>
+              <td>2022/9102</td>
+              <td>100L</td>
+              <td>
+                <span class="score-bar-wrap"><span class="score-bar mid" style="width:61%"></span></span>
+                <strong>61%</strong>
+              </td>
+              <td>30 min</td>
+              <td style="color:var(--muted);font-size:12px;">Mar 14, 2026</td>
+              <td><button class="btn btn-ghost btn-sm">View</button></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><strong>Ngozi Eze</strong></td>
+              <td>2022/3344</td>
+              <td>100L</td>
+              <td>
+                <span class="score-bar-wrap"><span class="score-bar low" style="width:38%"></span></span>
+                <strong>38%</strong>
+              </td>
+              <td>30 min</td>
+              <td style="color:var(--muted);font-size:12px;">Mar 14, 2026</td>
+              <td><button class="btn btn-ghost btn-sm">View</button></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><strong>Tunde Bello</strong></td>
+              <td>2022/7766</td>
+              <td>100L</td>
+              <td>
+                <span class="score-bar-wrap"><span class="score-bar" style="width:75%"></span></span>
+                <strong>75%</strong>
+              </td>
+              <td>25 min</td>
+              <td style="color:var(--muted);font-size:12px;">Mar 14, 2026</td>
+              <td><button class="btn btn-ghost btn-sm">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.pnav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    // highlight button
+    const btns = document.querySelectorAll('.pnav-btn');
+    const map = {
+      'p-role': 0, 'p-student-details': 1, 'p-student-dash': 2,
+      'p-exam': 3, 'p-student-feedback': 4,
+      'p-admin-dash': 5, 'p-admin-upload': 6,
+      'p-admin-feedback': 7, 'p-admin-results': 8
+    };
+    if (map[id] !== undefined) btns[map[id]].classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  // Build Q navigator
+  (function() {
+    const grid = document.getElementById('q-grid');
+    if (!grid) return;
+    for (let i = 1; i <= 40; i++) {
+      const el = document.createElement('div');
+      el.className = 'q-num' + (i === 1 ? ' current' : i <= 12 && i !== 1 ? ' answered' : i === 7 ? ' flagged' : '');
+      if (i === 7) el.className = 'q-num flagged';
+      el.textContent = i;
+      grid.appendChild(el);
+    }
+  })();
+
+  // Live timer on exam page
+  let seconds = 29 * 60 + 30;
+  setInterval(() => {
+    const el = document.getElementById('timer-display');
+    if (!el) return;
+    seconds = Math.max(0, seconds - 1);
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    el.textContent = m + ':' + s;
+    if (seconds < 300) el.style.color = '#ff4d2e';
+  }, 1000);
+</script>
+</body>
+</html>

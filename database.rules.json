@@ -1,28 +1,23 @@
 {
   "rules": {
     "exams": {
-      ".read": "auth != null && root.child('admins').child(auth.uid).val() === true",
-      ".write": "auth != null && root.child('admins').child(auth.uid).val() === true"
+      "$examId": {
+        ".read": true,
+        ".write": "auth != null && root.child('admins').child(auth.uid).val() === true",
+
+        "questions": {
+          ".read": "now >= root.child('exams').child($examId).child('startTime').val()",
+          ".write": "auth != null && root.child('admins').child(auth.uid).val() === true"
+        }
+      }
     },
 
     "submissions": {
-      // Allow unauthenticated clients to create (push) submissions but validate shape
-      // Reading, updating or deleting submissions is restricted to admins.
       ".read": "auth != null && root.child('admins').child(auth.uid).val() === true",
-      ".write": "(
-        (!data.exists() && newData.exists() &&
-          newData.child('examId').isString() &&
-          newData.child('studentName').isString() &&
-          newData.child('studentNumber').isString() &&
-          newData.child('answers').exists() &&
-          newData.child('submittedAt').isNumber()
-        )
-        ||
-        (auth != null && root.child('admins').child(auth.uid).val() === true)
-      )",
 
       "$subId": {
-        // restrict who can set or change score to admins (but validate if present)
+        ".write": "(!data.exists() && newData.child('examId').isString() && newData.child('studentName').isString() && newData.child('studentNumber').isString() && newData.child('answers').exists() && newData.child('submittedAt').isNumber() && newData.child('score').isNumber() && newData.child('score').val() >= 0 && newData.child('score').val() <= newData.child('total').val()) || (auth != null && root.child('admins').child(auth.uid).val() === true)",
+
         "score": {
           ".validate": "newData.isNumber() && newData.val() >= 0",
           ".write": "auth != null && root.child('admins').child(auth.uid).val() === true"
@@ -31,28 +26,13 @@
     },
 
     "feedback": {
-      // Feedback entries are public: everyone can read all feedback and replies.
-      // Anyone (even unauthenticated) may create a feedback entry with validated fields.
-      // Only authenticated admins may update/delete entries or add/edit/delete replies.
-
-      ".read": "true",
-      ".write": "(
-        (!data.exists() && newData.exists() &&
-          newData.child('name').isString() &&
-          newData.child('email').isString() &&
-          newData.child('subject').isString() &&
-          newData.child('message').isString() &&
-          newData.child('created').isNumber()
-        )
-        ||
-        (auth != null && root.child('admins').child(auth.uid).val() === true)
-      )",
+      ".read": true,
 
       "$feedbackId": {
+        ".write": "(!data.exists() && newData.child('name').isString() && newData.child('email').isString() && newData.child('subject').isString() && newData.child('message').isString() && newData.child('created').isNumber()) || (auth != null && root.child('admins').child(auth.uid).val() === true)",
+
         "replies": {
-          // Replies are readable by everyone (so students see admin replies)
-          ".read": "true",
-          // But only admins can write, edit or delete replies
+          ".read": true,
           ".write": "auth != null && root.child('admins').child(auth.uid).val() === true",
 
           "$replyId": {
@@ -63,7 +43,6 @@
     },
 
     "admins": {
-      // Admin mapping is sensitive; only admins may read/write it. Bootstrap via console.
       ".read": "auth != null && root.child('admins').child(auth.uid).val() === true",
       ".write": "auth != null && root.child('admins').child(auth.uid).val() === true"
     }

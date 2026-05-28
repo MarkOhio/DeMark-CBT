@@ -9,7 +9,8 @@ export default function Exam() {
   const { examId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const student = location.state?.student;
+  const [student, setStudent] = useState<any>(null);
+  const studentStorageKey = examId ? `exam_student_${examId}` : null;
 
   const SESSION_KEY = `exam_session_${examId}`;
   const PENDING_KEY = `pending_submission_${examId}`;
@@ -20,14 +21,33 @@ export default function Exam() {
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [tabSwitches, setTabSwitches] = useState<number>(0);
   const [locked, setLocked] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
   const submittedRef = useRef(false);
+  const questionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   /* ================= LOAD EXAM ================= */
 
   useEffect(() => {
     const init = async () => {
       const savedSession = localStorage.getItem(SESSION_KEY);
+      const incomingStudent = (location.state as any)?.student;
+      let storedStudent = incomingStudent;
+
+      if (!storedStudent && studentStorageKey) {
+        const savedStudent = localStorage.getItem(studentStorageKey);
+        if (savedStudent) {
+          try {
+            storedStudent = JSON.parse(savedStudent);
+          } catch {
+            localStorage.removeItem(studentStorageKey);
+          }
+        }
+      }
+
+      if (storedStudent) {
+        setStudent(storedStudent);
+      }
 
       // prevent re-taking on same device
       if (localStorage.getItem(`submitted_${examId}`)) {
@@ -51,6 +71,11 @@ export default function Exam() {
 
       if (!snap.exists()) {
         navigate("/");
+        return;
+      }
+      if (!storedStudent) {
+        alert("Please verify your identity before continuing the exam.");
+        navigate(`/student/instructions/${examId}`);
         return;
       }
       const exam = snap.val();      
@@ -88,7 +113,7 @@ export default function Exam() {
     };
 
     init();
-  }, [examId]);
+  }, [examId, location.state, studentStorageKey, navigate, SESSION_KEY]);
 
   /* ================= TIMER ================= */
 
@@ -171,18 +196,49 @@ export default function Exam() {
         localStorage.removeItem(SESSION_KEY);
         alert("Connection restored. Exam submitted.");
         navigate("/");
-      } catch {}
+      } catch {
+        // retry on next online event
+      }
     };
 
     window.addEventListener("online", attemptResubmit);
     return () => window.removeEventListener("online", attemptResubmit);
   }, []);
 
+  /* ================= TRACK CURRENT QUESTION ON SCROLL ================= */
+
+  useEffect(() => {
+    const handleScroll = () => {
+      let current = 0;
+      const scrollThreshold = 100; // distance from top of viewport
+      
+      questionRefs.current.forEach((ref, idx) => {
+        if (ref) {
+          const rect = ref.getBoundingClientRect();
+          if (rect.top <= scrollThreshold) {
+            current = idx;
+          }
+        }
+      });
+      setCurrentQuestionIndex(current);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [questions]);
+
   /* ================= SELECT ANSWER ================= */
 
   const select = (qid: string, opt: number) => {
     if (locked) return;
     setAnswers((prev) => ({ ...prev, [qid]: opt }));
+  };
+
+  const scrollToQuestion = (index: number) => {
+    setCurrentQuestionIndex(index);
+    if (questionRefs.current[index]) {
+      questionRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   /* ================= SUBMIT ================= */
@@ -234,6 +290,10 @@ export default function Exam() {
       // mark as completed on this device
       localStorage.setItem(`submitted_${examId}`, "1");
 
+      if (studentStorageKey) {
+        localStorage.removeItem(studentStorageKey);
+      }
+
       localStorage.removeItem(SESSION_KEY);
       alert(
         tabViolation
@@ -244,13 +304,13 @@ export default function Exam() {
       );
 
       navigate("/");
-    } catch (err: any) {
+    } catch {
       localStorage.setItem(PENDING_KEY, JSON.stringify(payload));
       alert("Submission failed. Will retry when online.");
     }
   };
 
-  if (!student) return <div>Invalid session.</div>;
+  if (!student) return <div>Loading exam session...</div>;
   if (!examData) return <div>Loading...</div>;
 
   const minutes = Math.floor(timeLeft / 60000);
@@ -259,26 +319,75 @@ export default function Exam() {
   return (
     <div className="exam-page">
       <div className="timer-bubble">
+        <div className="timer-dot"></div>
         {minutes}:{seconds.toString().padStart(2, "0")}
       </div>
       <h3>
-        Time Remaining: {minutes}:{seconds.toString().padStart(2, "0")}
+       {examData && (
+        <p className="exam-title2">{examData.courseCode} - {examData.title} </p> 
+      )} 
+      <p>CBT Examination</p>
       </h3>
 
-      {questions.map((q, idx) => (
-        <QuestionCard
-          key={q.id}
-            questionId={`${idx + 1}`}
-          text={q.text}
-          options={q.options}
-          selectedOption={answers[q.id] ?? null}
-          onSelect={(opt) => select(q.id, opt)}
-        />
-      ))}
+      <div className="exam-container">
+        <div className="questions-wrapper">
+          {questions.map((q, idx) => (
+            <QuestionCard
+              key={q.id}
+              ref={(el) => { questionRefs.current[idx] = el; }}
+              questionId={`${idx + 1}`}
+              text={q.text}
+              options={q.options}
+              selectedOption={answers[q.id] ?? null}
+              onSelect={(opt) => select(q.id, opt)}
+              isHighlighted={currentQuestionIndex === idx}
+            />
+          ))}
 
-      <button disabled={locked} onClick={() => submit(false)}>
-        Submit Exam
-      </button>
+          <button disabled={locked} onClick={() => submit(false)}>
+            Submit Exam
+          </button>
+        </div>
+
+        {/* Question Navigator */}
+        <div className="question-navigator-desktop">
+          <div className="navigator-header">Questions</div>
+          <div className="navigator-grid">
+            {questions.map((q, idx) => {
+              const isAnswered = answers[q.id] !== undefined;
+              const isCurrent = currentQuestionIndex === idx;
+              return (
+                <button
+                  key={q.id}
+                  className={`navigator-btn ${isCurrent ? "current" : isAnswered ? "answered" : "unanswered"}`}
+                  onClick={() => scrollToQuestion(idx)}
+                >
+                  {idx + 1}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Bottom Navigator */}
+      <div className="question-navigator-mobile">
+        <div className="navigator-scroll">
+          {questions.map((q, idx) => {
+            const isAnswered = answers[q.id] !== undefined;
+            const isCurrent = currentQuestionIndex === idx;
+            return (
+              <button
+                key={q.id}
+                className={`navigator-btn ${isCurrent ? "current" : isAnswered ? "answered" : "unanswered"}`}
+                onClick={() => scrollToQuestion(idx)}
+              >
+                {idx + 1}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

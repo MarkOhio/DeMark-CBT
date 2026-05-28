@@ -282,12 +282,15 @@ a {
   --accent: #4f8cff;
   --danger: #ff4d4f;
   --success: #2ecc71;
-  --warning: #f5a623;
+  --upcoming: #f5a623;
+  --card: #d1d1d1;
+  --netural:#00aaff;
 
   /* Text */
   --text-primary: #e6eaf0;
   --text-secondary: #9aa4b2;
   --text-muted: #6b7280;
+  --exam-card-text: #2e2e2e;
 
   /* Layout */
   --radius: 12px;
@@ -384,7 +387,7 @@ a {
   .side-nav {
     width: 280px;
     background-color: var(--bg-elevated);
-    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 1px solid rgba(235, 67, 67, 0.05);
     display: flex;
     flex-direction: column;
     padding: var(--space-md);

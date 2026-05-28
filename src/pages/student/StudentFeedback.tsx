@@ -1,11 +1,10 @@
 
 import { useEffect, useState } from "react";
-import { ref, push, onValue, remove, update } from "firebase/database";
+import { ref, push, onValue } from "firebase/database";
 import { database } from "../../firebase/firebase";
 import Navbar from "../../components/Navbar";
 import "./StudentFeedback.css";
 import { saveToStore, loadFromStore, removeFromStore } from "../../utils/offlineStore";
-import { isAdminLoggedIn } from "../../utils/localAuth";
 
 interface Reply {
   id: string;
@@ -41,7 +40,6 @@ export default function StudentFeedback() {
     rating: 0,
   });
 
-  const isAdmin = isAdminLoggedIn();
 
   useEffect(() => {
     const feedbackRef = ref(database, "feedback");
@@ -124,28 +122,13 @@ export default function StudentFeedback() {
     });
   };
 
-  const toggleStatus = async (id: string, current: string) => {
-    if (!isAdmin) return alert("Only admins can change status.");
-
-    await update(ref(database, `feedback/${id}`), {
-      status: current === "Open" ? "Closed" : "Open",
-    });
-  };
-
-  const deleteEntry = async (id: string) => {
-    if (!isAdmin) return alert("Only admins can delete entries.");
-
-    await remove(ref(database, `feedback/${id}`));
-  };
-
   return (
     <div className="dashboard-layout">
       <Navbar />
-
       <main className="dashboard-content feedback-wrap">
         <header className="feedback-header">
-          <h1>Complaint & Feedback Portal</h1>
-          <p>Submit, track, and manage feedback.</p>
+          <h1>Feedback Portal</h1>
+          <p>Submit complaints and track responses from admin.</p>
         </header>
 
         <div className="feedback-grid">
@@ -157,7 +140,7 @@ export default function StudentFeedback() {
               <div className="two">
                 <input
                   type="text"
-                  placeholder="Full name"
+                  placeholder="Your full name"
                   value={form.name}
                   onChange={(e) =>
                     setForm({ ...form, name: e.target.value })
@@ -166,7 +149,7 @@ export default function StudentFeedback() {
                 />
                 <input
                   type="email"
-                  placeholder="Email"
+                  placeholder="your@email.com"
                   value={form.email}
                   onChange={(e) =>
                     setForm({ ...form, email: e.target.value })
@@ -182,6 +165,7 @@ export default function StudentFeedback() {
                     setForm({ ...form, type: e.target.value })
                   }
                 >
+                 
                   <option>Complaint</option>
                   <option>Feedback</option>
                   <option>Suggestion</option>
@@ -243,7 +227,7 @@ export default function StudentFeedback() {
           </section>
 
           {/* LIST */}
-          <section className="card">
+          <section className="card" id="Entries">
             <h2>Entries</h2>
 
             {entries.length === 0 && (
@@ -265,24 +249,31 @@ export default function StudentFeedback() {
                         {new Date(entry.created).toLocaleString()}
                       </p>
 
-                      <div className="tags">
+                     
+
+                      <p className="excerpt">
+                        {entry.message.slice(0, 140)}
+                      </p>
+
+                       <div className="tags">
                         <span className="tag">
-                          {entry.type} • {entry.priority}
+                         <p> {entry.type} • {entry.priority}</p>
                         </span>
-                        <span
+                        <span id="stat"
                           className={
                             entry.status === "Open"
                               ? "badge status-open"
                               : "badge status-closed"
                           }
                         >
-                          {entry.status}
+                         <p> {entry.status}</p>
                         </span>
+                         <div className="entry-rating">
+                        <p> {entry.rating}★</p> 
+                      </div>
                       </div>
 
-                      <p className="excerpt">
-                        {entry.message.slice(0, 140)}
-                      </p>
+                     
 
                       {/* ADMIN REPLY DISPLAY */}
                       {reply && (
@@ -298,7 +289,7 @@ export default function StudentFeedback() {
                       )}
                     </div>
 
-                    <div className="actions">
+                    {/* <div className="actions">
                       <button
                         onClick={() =>
                           toggleStatus(entry.id, entry.status)
@@ -311,7 +302,7 @@ export default function StudentFeedback() {
                       >
                         Delete
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 );
               })}

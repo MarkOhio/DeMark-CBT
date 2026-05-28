@@ -101,7 +101,10 @@ export default function Results() {
   return (
     <div className="results-page">
       <Navbar />
-      <h2>Results</h2>
+      
+      <div className="results-con">
+
+        <h2>Results</h2>
 
       <input
         placeholder="Search exam"
@@ -296,6 +299,9 @@ export default function Results() {
           </div>
         )}
       </Modal>
+
+      </div>
+
     </div>
   );
 }

@@ -1,3 +1,10 @@
+.admin-feedback-dashboard-layout{  
+  min-height: 100vh;
+  background-color:var( --bg-elevated);
+  border-radius: 12px; 
+  width: 100%; 
+  display: flex;
+}
 .admin-feedback {
   padding-top: 80px;
 }
@@ -5,15 +12,32 @@
 .admin-toolbar {
   display: flex;
   gap: 12px;
-  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0px;
 }
 
 .admin-toolbar input,
 .admin-toolbar select {
   padding: 8px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #ccc; 
+} 
+.admin-savebtn{
+  padding: 4px  8px;
+  height:fit-content;
+  width:40%;
+  border-radius: 8px;
+margin:auto 3px;
+  border: none;
+  background-color: #2563eb;
+  color: #fff;
+  cursor: pointer;
 }
+/* .exams-con{
+     display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  } */
 
 .admin-list {
   display: flex;
@@ -25,9 +49,13 @@
   border: 1px solid #eee;
   border-radius: 12px;
   padding: 16px;
-  background: #fff;
+  color: #333;
+  background: var(--card);
 }
-
+.admin-card textarea{
+  background-color: rgba(0, 0, 0, 0.199);
+  color: rgb(31, 30, 30);
+}
 .admin-meta h3 {
   margin: 0;
 }
@@ -47,8 +75,21 @@
   display: flex;
   gap: 10px;
   margin-top: 10px;
+  height: 30px;
 }
-
+.admin-actions button {
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: none; 
+  color: white;
+  cursor: pointer;
+}
+.admin-actions-delete{
+  background: var(--danger);
+}
+.admin-actions-toggle{
+  background: var(--netural);
+}
 .reply-section {
   margin-top: 12px;
   display: flex;
@@ -65,9 +106,23 @@
 .reply-section button {
   padding: 8px;
   border-radius: 8px;
-  border: none;
-  background: #00aaff;
+  border: none; 
   color: white;
   cursor: pointer;
 }
 
+.admin-name{
+  display: flex;
+  width: 50vw;
+}
+.admin-name input{ 
+  width: 80%;
+}
+
+@media (min-width: 768px) {
+  /* .exams-con{
+     display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  } */
+     
+}

@@ -1,22 +1,75 @@
 /* AdminDashboard.css */
 
 .admin-con {
-  min-height: 100vh;
-  background-color: #296dd3;
-  top: 10px;
+    min-height: 100vh;
+  background-color:var( --bg-elevated);
+  border-radius: 12px; 
+  width: 100%; 
+  display: flex;
+
 }
 
 .admin-dashboard {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 40px 20px;
+  
+  margin: 0  ;
+  padding: 70px 10px;
+ width: 100%; 
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.overview-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.overview-card.clickable {
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.overview-card.clickable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(16, 24, 40, 0.08);
+}
+
+.overview-icon {
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.overview-title {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.overview-number {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.overview-sub {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #9ca3af;
 }
 
 .admin-dashboard h2 {
   margin-bottom: 30px;
   font-size: 26px;
   font-weight: 600;
-  color: #222;
 }
 
 .exam-cards {
@@ -25,8 +78,7 @@
   gap: 20px;
 }
 
-.exam-card {
-  background: #ffffff;
+.exam-card { 
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -41,18 +93,8 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-.exam-card h3 {
-  margin: 0 0 10px 0;
-  font-size: 18px;
-  font-weight: 600;
-  color: #111;
-}
-
-.exam-card p {
-  margin: 4px 0;
-  font-size: 14px;
-  color: #555;
-}
+ 
+ 
 
 .card-buttons {
   display: flex;
@@ -97,6 +139,12 @@
 @media (max-width: 600px) {
   .admin-dashboard {
     padding: 25px 15px;
+    margin: 10px 10px;
+  }
+
+  .overview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
   .admin-dashboard h2 {
@@ -106,4 +154,13 @@
   .exam-card {
     padding: 15px;
   }
+}
+@media (min-width: 768px) {
+.admin-con {
+   min-height: 100vh;
+  background-color:var( --bg-elevated);
+  border-radius: 12px; 
+  width: 100%; 
+  display: flex;
+}
 }

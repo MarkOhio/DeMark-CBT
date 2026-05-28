@@ -2,6 +2,7 @@
 .dashboard-layout {
   display: flex;
   min-height: 100vh;
+  width: 100%;
 }
 
 .dashboard-content {
@@ -12,15 +13,11 @@
 
 /* Desktop Sidebar Offset */
 @media (min-width: 768px) {
-  .dashboard-content {
+  /* .dashboard-content {
     margin-left: 220px;
-  }
+  } */
 }
-
-.student-dashboard h2 {
-  font-size: 1.5rem;
-  margin-bottom: 16px;
-}
+ 
 
 /* =========================
    STUDENT DASHBOARD
@@ -38,17 +35,36 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+  flex-wrap: wrap;
 }
-
+.arrange-exam-cards{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vh 1vw;
+}
+ 
 .exam-card {
   background-color: var(--bg-surface);
   border-radius: var(--radius);
   padding: var(--space-md);
   display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
+  flex-direction: column; 
+      background: var(--card); 
+    border-radius: var(--radius); 
+    overflow: hidden;
+    transition: border-color .15s, transform .15s;
+    cursor: pointer; 
+    flex: 1 1 150px;
 }
-
+.exam-card.active{
+      border:2px solid var(--success);
+       border-top:5px solid var(--success);
+}
+.exam-card.upcoming{
+      border:2px solid var(--upcoming);
+       border-top:5px solid var(--upcoming);
+      
+}
 .exam-info {
   display: flex;
   flex-direction: column;
@@ -57,7 +73,7 @@
 
 .exam-title {
   font-weight: 600;
-  
+  color: rgb(0, 0, 0);
 }
 
 .exam-code {
@@ -81,6 +97,84 @@
 }
 
 .exam-status.upcoming {
-  color: var(--warning);
+  color: var(--upcoming);
+   background-color: #f5a52348;
+}
+.page-title {
+    font-family: var(--font-head);
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.8px;
+    margin-bottom: 4px;
+}
+.page-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.section-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+.section-head h2 {
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 700;
+}
+.etag {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .3px;
+}
+.tag-green {
+    background: #2ecc703d;
+    color: var(--success);
+}
+.tag-orange{
+background: #f5a52348;
+    color: var(--upcoming);
+}
+.section-divider {
+    flex: 1;
+    height: 1px;
+    background: var(--text-secondary);
+}
+
+
+@media (min-width: 768px) { 
+.arrange-exam-cards{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vh 1vw;
+}
+.exam-card {
+ flex: 1 1 200px;
+}
+.dashboard-content {
+  flex: 1;
+  padding: 1.5rem;
+  padding-top: 3vh;
+}
+}

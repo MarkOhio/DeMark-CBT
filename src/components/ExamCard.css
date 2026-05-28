@@ -1,7 +1,7 @@
 
 .exam-card {
   background: #020617;
-  color: #e5e7eb;
+  color: var(--exam-card-text);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 12px;
@@ -17,14 +17,30 @@
 
 .exam-title {
   font-size: 1.1rem;
-  margin-bottom: 6px;
+  margin-bottom: 0px
 }
 
 .exam-course,
 .exam-date {
   font-size: 0.9rem;
-  margin-bottom: 4px;
+  margin-bottom: 0px;
   color: #94a3b8;
+}
+
+.exam-duration,
+.exam-questions {
+  font-size: 0.9rem;
+  margin-bottom: 0px;
+  color: #3a7dce;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.exam-duration strong,
+.exam-questions strong {
+  color: #af2f2f;
 }
 
 .exam-status {
@@ -42,4 +58,12 @@
 .exam-status.active {
   background: #22c55e33;
   color: #22c55e;
+}
+
+
+
+.exam-card svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
 }

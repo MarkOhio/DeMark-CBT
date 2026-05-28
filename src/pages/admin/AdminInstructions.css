@@ -1,0 +1,159 @@
+.admin-instruction-page {
+   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  min-height: 100vh;
+  background-color:var( --bg-elevated);
+  color: #e5e7eb;
+}
+
+.admin-instruction-container {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 40px 20px;
+  padding-top: 100px;
+}
+
+.admin-instruction-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.admin-instruction-header h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.admin-instruction-header .subtitle {
+  font-size: 16px;
+  color: #e0e7ff;
+}
+
+.admin-instruction-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.admin-instruction-section {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  backdrop-filter: blur(10px);
+}
+
+.admin-instruction-section:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.admin-instruction-section h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.admin-instruction-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.section-svg {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  color: #fbbf24;
+}
+
+.admin-instruction-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-instruction-section li {
+  font-size: 14px;
+  color: #f0f9ff;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.admin-instruction-section li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #fbbf24;
+  font-weight: bold;
+}
+
+.admin-instruction-footer {
+  text-align: center;
+  padding: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.acknowledgment {
+  font-size: 14px;
+  color: #e0e7ff;
+  margin-bottom: 16px;
+}
+
+.btn-back {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-back:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .admin-instruction-container {
+    padding: 24px 16px;
+    padding-top: 80px;
+  }
+
+  .admin-instruction-header h1 {
+    font-size: 24px;
+  }
+
+  .admin-instruction-header .subtitle {
+    font-size: 14px;
+  }
+
+  .admin-instruction-sections {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .admin-instruction-section {
+    padding: 20px;
+  }
+}

@@ -54,11 +54,19 @@ export default function StudentDashboard() {
       <Navbar />
 
       <main className="dashboard-content">
-        <h2>Available Exams</h2>
+        <div className="page-title">Dashboard</div>
+        <div className="page-sub">Welcome back — check your available exams below.</div>
+        <div className="section-head">
+        <h2>Active Exams</h2>
+        <div className="section-divider"></div>
+        <span className="etag tag-green">Live</span>
+      </div>
+        
 
         {activeExams.length === 0 && (
           <p>No active exams available.</p>
         )}
+<div className="arrange-exam-cards">
 
         {activeExams.map((exam) => (
           <ExamCard
@@ -67,27 +75,54 @@ export default function StudentDashboard() {
             courseCode={exam.courseCode}
             date={new Date(exam.startTime).toLocaleString()}
             status="Active"
-            onClick={() =>
-              navigate(`/student/instructions/${exam.id}`)
+            onClick={() => navigate(`/student/instructions/${exam.id}`)}
+            durationMinutes={
+              exam.durationMinutes
+                ? exam.durationMinutes
+                : exam.startTime && exam.endTime
+                ? Math.round((exam.endTime - exam.startTime) / 60000)
+                : undefined
+            }
+            questionCount={
+              exam.questions
+                ? Array.isArray(exam.questions)
+                  ? exam.questions.length
+                  : Object.keys(exam.questions).length
+                : undefined
             }
           />
         ))}
 
+</div>
         {upcomingExams.length > 0 && (
           <>
-            <h2 style={{ marginTop: 24 }}>Upcoming Exams</h2>
-            {upcomingExams.map((exam) => (
+          <div className="section-head" >
+        <h2>Upcoming Exams</h2>
+        <div className="section-divider"></div>
+        <span className="etag tag-orange">Scheduled</span>
+      </div>
+           
+            <div className="arrange-exam-cards">
+
+              {upcomingExams.map((exam) => (
               <ExamCard
                 key={exam.id}
                 title={exam.title}
                 courseCode={exam.courseCode}
                 date={new Date(exam.startTime).toLocaleString()}
                 status="Upcoming"
-                onClick={() =>
-                  alert("This exam is not yet available.")
-                }
+                  onClick={() => alert("This exam is not yet available.")}
+                  durationMinutes={
+                    exam.durationMinutes
+                      ? exam.durationMinutes
+                      : exam.startTime && exam.endTime
+                      ? Math.round((exam.endTime - exam.startTime) / 60000)
+                      : undefined
+                  }
               />
             ))}
+
+            </div>
           </>
         )}
       </main>
